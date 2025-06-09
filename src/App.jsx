@@ -74,6 +74,7 @@ useEffect(() => {
 
 function handleSearchChange(query){
   setSearchQuery(query);
+  FetchSearch();
 }
 
   return (
