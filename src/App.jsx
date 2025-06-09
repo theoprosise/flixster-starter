@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import MovieList from './components/MovieList'
 import SearchForm from './components/SearchForm'
-
+import MovieModal from './components/MovieModal'
 
 const App = () => {
 
@@ -87,6 +87,7 @@ function handleSearchChange(query){
       {/*Populate MovieList with MovieCards and data from API*/}
       
       <MovieList data={data}/>
+      <MovieModal/>
       <button onClick={() => setPage(page => page +1)}>
         Load More
       </button>
