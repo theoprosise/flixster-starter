@@ -14,9 +14,9 @@ useEffect(() => {
   fetchNowPlaying();
 }, [page])
 
-const FetchSearch = async() =>{
+const FetchSearch = async(query) =>{
     const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
-    const url = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}`;
+    const url = `https://api.themoviedb.org/3/search/movie?query=${query}`;
     
     try{
       const res = await fetch(url, {
@@ -73,8 +73,9 @@ useEffect(() => {
 },[]);
 
 function handleSearchChange(query){
-  setSearchQuery(query);
-  FetchSearch();
+  console.log(query);
+  //setSearchQuery(query);
+  FetchSearch(query);
 }
 
   return (
