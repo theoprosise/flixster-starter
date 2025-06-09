@@ -1,6 +1,6 @@
 import propTypes from "prop-types";
 import MovieCard from "./MovieCard";
-import "./MovieCard.css";
+import "./MovieList.css";
 
 export default function MovieList({data}){
     return (
