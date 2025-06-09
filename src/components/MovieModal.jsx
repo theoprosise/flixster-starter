@@ -2,13 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./MovieModal.css";
 
-function MovieModal() {
+function MovieModal(movie) {
+    console.log(movie)
   return (
-    <div id="movieModal" className="modal-overlay" style={{display: "none",}}>
+    <div id="movieModal" className="modal-overlay" >
       <div className="modal-content">
-        <span className="close">x</span>
-        <h2 id="modalTitle">Playlist Title</h2>
-        <p id="modalCreator">Creator Name</p>
+        <img
+          className="movieImage"
+          src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
+          alt={movie.title}
+        />
+        <h2>{movie.title}</h2>
+        <p>Average Rating: {movie.vote_average} / 10</p>    
       </div>
     </div>
   );
