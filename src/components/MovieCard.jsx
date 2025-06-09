@@ -11,7 +11,7 @@ export default function MovieCard({ movie }) {
 
   return (
     <>
-      {toggleModal && <MovieModal movie={movie.title}/>}
+      {toggleModal && <MovieModal movie={movie}/>}
       <div className="movieCard" onClick={() => setToggleModal(!toggleModal)}>
         <img
           className="movieImage"
