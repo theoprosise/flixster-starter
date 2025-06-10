@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #17181f;
 }
 
 .App-header {
@@ -30,8 +31,21 @@
 .header{
   background-color: #17181f;
   color: white;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .main-content{
   background-color: #17181f;
+}
+
+.load-more-btn{
+  margin: 10px;
+}
+
+
+.header-text{
+  font-size: 30px;
+  margin-top: 0px;
+  padding-top: 10px;
 }

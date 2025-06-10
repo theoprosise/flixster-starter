@@ -7,6 +7,7 @@ import MovieModal from "./MovieModal";
 
 //Function to display individual movie on the movie list
 export default function MovieCard({ movie, isFavorite, isWatched, onToggleFavorite, onToggleWatched}) {
+    //console.log(movie.id);
       const [toggleModal, setToggleModal] = useState(false);
     const stop = e => {e.stopPropagation()};
   return (

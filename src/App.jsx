@@ -123,8 +123,9 @@ function handleSearchChange(query){
   return (
     <div className="App">
     <header className='header'>
-      <h1>Flixter</h1>
+      <p className='header-text'>Flixter</p>
       <SearchForm className="searchForm" onSearchChange={handleSearchChange}/>
+      Sort by:
       <select value={sortOption} onChange={e=>setSortOption(e.target.value)} style={{marginLeft:16}}>
         <option value="title">Title (A-Z)</option>
         <option value="date">Release Date (newest)</option>
@@ -135,7 +136,7 @@ function handleSearchChange(query){
       {/*Populate MovieList with MovieCards and data from API*/}
       <MovieList data={sortedData} favorites={favorites} watched={watched} onToggleFavorite={toggleFavorite} onToggleWatched={toggleWatched}/>
       <MovieModal/>
-      <button onClick={() => setPage(page => page +1)}>
+      <button className="load-more-btn" onClick={() => setPage(page => page +1)}>
         Load More
       </button>
     </main>

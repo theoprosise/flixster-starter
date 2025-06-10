@@ -25,8 +25,8 @@ const handleSearch = (event) =>{
 }
 
   return (
-        <form id="search-form-bar">
-            <input type="search" name="query" onChange={handleChange} onSubmit={handleChange} placeholder="Search..."></input>
+        <form id="search-form-bar" onSubmit={handleChange}>
+            <input type="search" name="query" onChange={handleChange}  placeholder="Search..."></input>
             <button type="submit">Submit</button>
             <button type="submit">Clear</button>
         </form>
