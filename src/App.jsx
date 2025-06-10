@@ -122,7 +122,8 @@ function handleSearchChange(query){
 
   return (
     <div className="App">
-    <header className='header'>Flixter
+    <header className='header'>
+      <h1>Flixter</h1>
       <SearchForm className="searchForm" onSearchChange={handleSearchChange}/>
       <select value={sortOption} onChange={e=>setSortOption(e.target.value)} style={{marginLeft:16}}>
         <option value="title">Title (A-Z)</option>
@@ -130,9 +131,8 @@ function handleSearchChange(query){
         <option value="vote">Average Vote (highest)</option>
       </select>
     </header>
-    <main>
+    <main className='main-content'>
       {/*Populate MovieList with MovieCards and data from API*/}
-      
       <MovieList data={sortedData} favorites={favorites} watched={watched} onToggleFavorite={toggleFavorite} onToggleWatched={toggleWatched}/>
       <MovieModal/>
       <button onClick={() => setPage(page => page +1)}>
