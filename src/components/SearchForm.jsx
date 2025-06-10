@@ -1,38 +1,39 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./SearchForm.css"
+import "./SearchForm.css";
 
+function SearchForm({ onSearchChange }) {
+  const [searchQuery, setSearchQuery] = React.useState("");
 
+  const handleChange = (event) => {
+    setSearchQuery(event.target.value);
+    onSearchChange(event.target.value);
+  };
 
-
-function SearchForm( {onSearchChange}) {
-
-  const handleChange= (event) =>{
-  event.preventDefault();
-  let searchQuery = event.target.value;
-  onSearchChange(searchQuery);
-  //event.target.reset();
-}
-
-const handleClear = (event) =>{
-    onSearchChange("");
-}
-
-const handleSearch = (event) =>{
-    onSearchChange("");
-    let searchQuery = event.target.value;
+  const handleSubmit = (event) => {
+    event.preventDefault();
     onSearchChange(searchQuery);
-}
+  };
+
+  const handleClear = (event) => {
+    event.preventDefault();
+    setSearchQuery("");
+    onSearchChange("-clear-");
+  };
 
   return (
-        <form id="search-form-bar" onSubmit={handleChange}>
-            <input type="search" name="query" onChange={handleChange}  placeholder="Search..."></input>
-            <button type="submit">Submit</button>
-            <button type="submit">Clear</button>
-        </form>
+    <form id="search-form-bar" onSubmit={handleSubmit}>
+      <input
+        type="search"
+        name="query"
+        value={searchQuery}
+        onChange={handleChange}
+        placeholder="Search..."
+      />
+      <button type="submit">Submit</button>
+      <button onClick={handleClear}>Clear</button>
+    </form>
   );
 }
-
-
 
 export default SearchForm;

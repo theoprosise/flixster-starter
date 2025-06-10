@@ -116,8 +116,13 @@ useEffect(() => {
 
 function handleSearchChange(query){
   console.log(query);
-  //setSearchQuery(query);
+  if(query=="-clear-"){
+    fetchNowPlaying();
+  }
+  else{
+      setSearchQuery(query);
   FetchSearch(query);
+  }
 }
 
   return (
