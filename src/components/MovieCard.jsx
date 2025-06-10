@@ -11,8 +11,8 @@ export default function MovieCard({ movie }) {
 
   return (
     <>
-      {toggleModal && <MovieModal movie={movie}/>}
-      <div className="movieCard" onClick={() => setToggleModal(!toggleModal)}>
+      {toggleModal && <MovieModal movie={movie} onClose={() => setToggleModal(false)}/>}
+      <div className="movieCard" onClick={() => setToggleModal(true)}>
         <img
           className="movieImage"
           src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
