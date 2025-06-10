@@ -11,21 +11,23 @@
     background-color: rgba(0,0,0,0.4); 
 }
 .modal-content {
-    background-color: #fefefe;
+    border-radius: 14px;
+    color: white;
+    background-color: #41414e;
     margin: 15% auto; 
     padding: 20px;
     border: 1px solid #888;
     width: 80%; 
 }
 .close {
-    color: #aaa;
+    color: black;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 .close:hover,
 .close:focus {
-    color: black;
+    color: red;
     text-decoration: none;
     cursor: pointer;
 }

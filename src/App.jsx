@@ -120,7 +120,7 @@ function handleSearchChange(query){
     fetchNowPlaying();
   }
   else{
-      setSearchQuery(query);
+  setSearchQuery(query);
   FetchSearch(query);
   }
 }

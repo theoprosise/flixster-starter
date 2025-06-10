@@ -54,6 +54,38 @@ function MovieModal({ movie, onClose }) {
     getYoutubeID();
   }, [movie.id]);
 
+  useEffect(() => {
+    getMovieRuntime();
+  },[movie.id]);
+
+  const [runtimeText, setRuntime] = useState(null);
+  const getMovieRuntime = async () => {
+    const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
+    const url = `https://api.themoviedb.org/3/movie/${movieIdThroughDB}`;
+    try{
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if(!res.ok){
+        console.log("Error - check res status code")
+      }
+      const newData = await res.json();
+      console.log(newData)
+
+      setRuntime(newData.runtime);
+
+    }
+    catch(err){
+      console.log("ERROR - check err");
+    }
+  };
+
+
   //Function to get genre text from the provided genre ids
   const getGenres = () =>{
     let ret = "";
@@ -87,6 +119,7 @@ function MovieModal({ movie, onClose }) {
         <p>Released on: {movie.release_date}</p>
         <p>Overview: {movie.overview}</p>
         <p>Genres: {genresText}</p>
+        <p>Runtime: {runtimeText} mins</p>
     
         <iframe
           width="560"
