@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 import MovieList from './components/MovieList'
 import SearchForm from './components/SearchForm'
@@ -6,9 +6,10 @@ import MovieModal from './components/MovieModal'
 
 const App = () => {
 
-let [data, setMovieData] = useState([]);
+const [data, setMovieData] = useState([]);
 let [page, setPage] = useState(1);
 let [searchQuery, setSearchQuery] = useState("");
+const [sortOption, setSortOption] = useState("title");
 
 useEffect(() => {
   fetchNowPlaying();
@@ -68,6 +69,27 @@ const fetchNowPlaying = async () => {
   };
 
 
+//This is interesting - can talk more about how using memoization is awesome
+const sortedData = useMemo( () => {
+  const listDataMovies = [...data];
+  switch(sortOption){
+    case "title":
+      return listDataMovies.sort((a,b) =>
+      a.title.localeCompare(b.title)
+      );
+    case "date":
+      return listDataMovies.sort((a,b) =>
+        new Date(a.release_date) -  new Date(a.release_date)
+    );
+     case "vote":
+      return listDataMovies.sort((a,b) =>
+        b.vote_average - a.vote_average
+    );
+    default:
+      return listDataMovies;
+  }
+}, [data,sortOption]);
+
 useEffect(() => {
   fetchNowPlaying();
 },[]);
@@ -82,11 +104,16 @@ function handleSearchChange(query){
     <div className="App">
     <header className='header'>Flixter
       <SearchForm className="searchForm" onSearchChange={handleSearchChange}/>
+      <select value={sortOption} onChange={e=>setSortOption(e.target.value)} style={{marginLeft:16}}>
+        <option value="title">Title (A-Z)</option>
+        <option value="date">Release Date (newest)</option>
+        <option value="vote">Average Vote (highest)</option>
+      </select>
     </header>
     <main>
       {/*Populate MovieList with MovieCards and data from API*/}
       
-      <MovieList data={data}/>
+      <MovieList data={sortedData}/>
       <MovieModal/>
       <button onClick={() => setPage(page => page +1)}>
         Load More
