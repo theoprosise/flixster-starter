@@ -1,12 +1,27 @@
 .movieCard{
-    background-color: #41414e;
-    border: white solid 1px;
-    border-radius: 12px;
-    flex: 1 1 200px;
-    color: white;
+  background-color: #41414e;
+  border: white solid 1px;
+  border-radius: 12px;
+  flex: 1 1 200px;
+  color: white;
+  position: relative;
 }
 
 .movieImage{
-    border-radius: 12px;
-    max-width: 50%;
+  border-radius: 12px;
+  max-width: 70%;
+  margin-bottom: 20px; /* Add some space between the image and the text */
+}
+
+.movie-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-row{
+  padding-top: 20px;
+  
+  
 }

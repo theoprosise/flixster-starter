@@ -19,8 +19,10 @@ export default function MovieCard({ movie, isFavorite, isWatched, onToggleFavori
           src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
           alt={movie.title}
         />
+        <div className="movie-info">
         <h2>{movie.title}</h2>
         <p>Average Rating: {movie.vote_average} / 10</p>
+        </div>
         <div className="button-row" onClick={stop}>
             <button className={isFavorite ? "active fav-btn" : "fav-btn"} onClick={onToggleFavorite}>
                 {isFavorite ? "Favorited ❤️" : "Favorite 🤍"}
