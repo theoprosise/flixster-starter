@@ -4,29 +4,28 @@ import MovieList from "./components/MovieList";
 import SearchForm from "./components/SearchForm";
 import MovieModal from "./components/MovieModal";
 import SideBar from "./components/Sidebar";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 
 const App = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [sortOption, setSortOption] = useState("title");
+  const [favorites, setFavorites] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const [currentView, setCurrentView] = useState("home");
+  const [data, setMovieData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const handleToggleSidebar = () => {
     setIsSideBarOpen(!isSideBarOpen);
   };
-  const [data, setMovieData] = useState([]);
-  let [page, setPage] = useState(1);
-  let [searchQuery, setSearchQuery] = useState("");
-  const [sortOption, setSortOption] = useState("title");
 
-  //Arrays to store the favorited and watched movies
-  const [favorites, setFavorites] = useState([]);
-  const [watched, setWatched] = useState([]);
-
-  const [currentView, setCurrentView] = useState("home");
-
+  //When load more is clicked, grab next page of data
   useEffect(() => {
     fetchNowPlaying();
   }, [page]);
 
-  const FetchSearch = async (query) => {
+  const fetchSearch = async (query) => {
     const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
     const url = `https://api.themoviedb.org/3/search/movie?query=${query}`;
 
@@ -90,7 +89,7 @@ const App = () => {
     );
   };
 
-  //This is interesting - can talk more about how using memoization is awesome
+  //Memoization to reduce redunant calls
   const sortedData = useMemo(() => {
     const listDataMovies = [...data];
     switch (sortOption) {
@@ -123,7 +122,7 @@ const App = () => {
       //Real search
       setSearchQuery(query);
       setCurrentView("home");
-      FetchSearch(query);
+      fetchSearch(query);
     }
   }
 
@@ -178,10 +177,8 @@ const App = () => {
             Load More
           </button>
         )}
-          
-
       </main>
-        <Footer />
+      <Footer />
       <SideBar
         isOpen={isSideBarOpen}
         onClose={handleToggleSidebar}

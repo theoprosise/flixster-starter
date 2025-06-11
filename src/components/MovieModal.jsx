@@ -1,19 +1,32 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import "./MovieModal.css";
-import genresData from "./genres.json"
+import genresData from "./genres.json";
 function MovieModal({ movie, onClose }) {
-  
-  //console.log(movie);
   if (!movie) {
     return null;
   }
   const [youtubeId, setYoutubeId] = useState(null);
   let movieIdThroughDB = movie.id;
+
+  const getMovieTrailerIndex = (movieData) => {
+    let ind = 0;
+    let curTrailerName = "";
+    for (let i = 0; i < movieData.results.length; i++) {
+      curTrailerName = movieData.results[i].name.toLowerCase();
+      if (curTrailerName.includes("trailer")) {
+        ind = i;
+        break;
+      }
+    }
+    return ind;
+  };
+
+  //Get the youtube specific key for movie in modal
   const getYoutubeID = async () => {
     const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
     const url = `https://api.themoviedb.org/3/movie/${movieIdThroughDB}/videos`;
-    try{
+    try {
       const res = await fetch(url, {
         method: "GET",
         headers: {
@@ -22,47 +35,34 @@ function MovieModal({ movie, onClose }) {
         },
       });
 
-      if(!res.ok){
-        console.log("Error - check res status code")
+      if (!res.ok) {
+        console.log("Error - check res status code");
       }
 
       const newData = await res.json();
-      //console.log(newData.results);
-      //console.log(newData.results.length)
-      let ind = 0;
-      let curName = "";
-      for(let i = 0; i< newData.results.length; i ++){
-      curName = newData.results[i].name.toLowerCase()
-      //console.log(curName)
-        if(curName.includes("trailer")){
-          //console.log("HERE IS WHEER" + i);
-          ind = i;
-          break;
-        }
-      }
-      //console.log(ind);
-      setYoutubeId(newData.results[ind].key);
+      let trailerIndex = getMovieTrailerIndex(newData);
 
-    }
-    catch(err){
+      setYoutubeId(newData.results[trailerIndex].key);
+    } catch (err) {
       console.log("ERROR - check err");
     }
   };
 
-
-  useEffect(() =>{
+  //Get new information on movie update (new modal click)
+  useEffect(() => {
     getYoutubeID();
   }, [movie.id]);
 
   useEffect(() => {
     getMovieRuntime();
-  },[movie.id]);
+  }, [movie.id]);
 
   const [runtimeText, setRuntime] = useState(null);
+  //Query detailed endpoint to get runtime data from movie id
   const getMovieRuntime = async () => {
     const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
     const url = `https://api.themoviedb.org/3/movie/${movieIdThroughDB}`;
-    try{
+    try {
       const res = await fetch(url, {
         method: "GET",
         headers: {
@@ -71,46 +71,43 @@ function MovieModal({ movie, onClose }) {
         },
       });
 
-      if(!res.ok){
-        console.log("Error - check res status code")
+      if (!res.ok) {
+        console.log("Error - check res status code");
       }
       const newData = await res.json();
-      console.log(newData)
+      console.log(newData);
 
       setRuntime(newData.runtime);
-
-    }
-    catch(err){
+    } catch (err) {
       console.log("ERROR - check err");
     }
   };
 
-
-  //Function to get genre text from the provided genre ids
-  const getGenres = () =>{
+  //Genre text from the provided genre ids
+  const getGenres = () => {
     let ret = "";
-    for(let i = 0; i < movie.genre_ids.length; i ++){
-    genresData.genres.forEach(genre =>{
-      if(genre.id == movie.genre_ids[i]){
-        ret = ret +" " + genre.name+",";
-      }
-    })
-  }
-  ret.trim();
-    return ret.slice(0,-1);
-}
-//Genre text to be displayed on the modal
- let genresText = getGenres();
-  
+    for (let i = 0; i < movie.genre_ids.length; i++) {
+      genresData.genres.forEach((genre) => {
+        if (genre.id == movie.genre_ids[i]) {
+          ret = ret + " " + genre.name + ",";
+        }
+      });
+    }
+    ret.trim();
+    return ret.slice(0, -1);
+  };
+
+  let genresText = getGenres();
+
   const handleContentClick = (e) => e.stopPropagation();
   return (
     <div id="movieModal" className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={handleContentClick}>
-         <span className="close" onClick={onClose}>
+        <span className="close" onClick={onClose}>
           x
         </span>
         <h2>{movie.title}</h2>
-        
+
         <img
           className="movieImage"
           src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
@@ -120,7 +117,7 @@ function MovieModal({ movie, onClose }) {
         <p>Overview: {movie.overview}</p>
         <p>Genres: {genresText}</p>
         <p>Runtime: {runtimeText} mins</p>
-    
+
         <iframe
           width="560"
           height="315"
@@ -128,7 +125,6 @@ function MovieModal({ movie, onClose }) {
           title="YouTube video player"
           alt="Movie Trailer"
         ></iframe>
-       
       </div>
     </div>
   );
