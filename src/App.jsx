@@ -104,7 +104,7 @@ const App = () => {
         return listDataMovies.sort((a, b) => a.title.localeCompare(b.title));
       case "date":
         return listDataMovies.sort(
-          (a, b) => new Date(a.release_date) - new Date(b.release_date)
+          (a, b) => new Date(b.release_date) - new Date(a.release_date)
         );
       case "vote":
         return listDataMovies.sort((a, b) => b.vote_average - a.vote_average);
