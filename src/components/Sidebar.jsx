@@ -1,9 +1,10 @@
 import React from "react";
 import "./Sidebar.css"
 
-export default function SideBar({favorites, watched}){
+export default function SideBar({favorites, watched, isOpen, onClose}){
     return (
-        <aside className="side-bar">
+        <aside className={`sidebar ${isOpen ? '.open' : ''}`}>
+            <button onClick={onClose}>Close</button>
             <section>
                 <h3>Favorites</h3>
                 <ul>

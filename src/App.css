@@ -35,6 +35,11 @@
   margin-bottom: 10px;
 }
 
+.header-info{
+  justify-content: space-around;
+  display: flex;
+  align-items: center;
+}
 .main-content{
   background-color: #17181f;
 }
