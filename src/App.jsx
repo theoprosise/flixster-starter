@@ -25,6 +25,11 @@ const App = () => {
     fetchNowPlaying();
   }, [page]);
 
+  //Initial fetch upon mount
+  useEffect(() => {
+    fetchNowPlaying();
+  }, []);
+
   const fetchSearch = async (query) => {
     const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
     const url = `https://api.themoviedb.org/3/search/movie?query=${query}`;
@@ -67,7 +72,6 @@ const App = () => {
       }
 
       const newData = await res.json();
-      console.log("HERE IS THE DATA" + [...data]);
       setMovieData((prev) =>
         page === 1 ? newData.results : [...data, ...newData.results]
       );
@@ -100,7 +104,7 @@ const App = () => {
         return listDataMovies.sort((a, b) => a.title.localeCompare(b.title));
       case "date":
         return listDataMovies.sort(
-          (a, b) => new Date(a.release_date) - new Date(a.release_date)
+          (a, b) => new Date(a.release_date) - new Date(b.release_date)
         );
       case "vote":
         return listDataMovies.sort((a, b) => b.vote_average - a.vote_average);
@@ -108,10 +112,6 @@ const App = () => {
         return listDataMovies;
     }
   }, [data, sortOption]);
-
-  useEffect(() => {
-    fetchNowPlaying();
-  }, []);
 
   function handleSearchChange(query) {
     //If user cleared box
@@ -131,10 +131,10 @@ const App = () => {
   }
 
   const displayedMovies = useMemo(() => {
-    if (currentView == "favorites") {
+    if (currentView === "favorites") {
       return favorites;
     }
-    if (currentView == "watched") {
+    if (currentView === "watched") {
       return watched;
     }
     return sortedData;
@@ -173,7 +173,7 @@ const App = () => {
           onToggleWatched={toggleWatched}
         />
         <MovieModal />
-        {currentView == "home" && (
+        {currentView === "home" && (
           <button
             className="load-more-btn"
             onClick={() => setPage((page) => page + 1)}
