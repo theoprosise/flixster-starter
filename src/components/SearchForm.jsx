@@ -18,7 +18,7 @@ function SearchForm({ onSearchChange }) {
   const handleClear = (event) => {
     event.preventDefault();
     setSearchQuery("");
-    onSearchChange("-clear-");
+    onSearchChange("");
   };
 
   return (
@@ -31,7 +31,9 @@ function SearchForm({ onSearchChange }) {
         placeholder="Search..."
       />
       <button type="submit">Submit</button>
-      <button onClick={handleClear}>Clear</button>
+      <button type="button" onClick={handleClear}>
+        Clear
+      </button>
     </form>
   );
 }

@@ -4,6 +4,7 @@ import MovieList from "./components/MovieList";
 import SearchForm from "./components/SearchForm";
 import MovieModal from "./components/MovieModal";
 import SideBar from "./components/Sidebar";
+import Footer from "./components/Footer"
 
 const App = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
@@ -111,11 +112,17 @@ const App = () => {
   }, []);
 
   function handleSearchChange(query) {
-    console.log(query);
-    if (query == "-clear-") {
+    //If user cleared box
+    if (query === "") {
+      setSearchQuery("");
+      setCurrentView("home");
+      setPage(1);
+      setMovieData([]);
       fetchNowPlaying();
     } else {
+      //Real search
       setSearchQuery(query);
+      setCurrentView("home");
       FetchSearch(query);
     }
   }
@@ -163,14 +170,18 @@ const App = () => {
           onToggleWatched={toggleWatched}
         />
         <MovieModal />
-        {currentView == "home" && (<button
-          className="load-more-btn"
-          onClick={() => setPage((page) => page + 1)}>
-           Load More
-        </button>
+        {currentView == "home" && (
+          <button
+            className="load-more-btn"
+            onClick={() => setPage((page) => page + 1)}
+          >
+            Load More
+          </button>
         )}
-         
+          
+
       </main>
+        <Footer />
       <SideBar
         isOpen={isSideBarOpen}
         onClose={handleToggleSidebar}
