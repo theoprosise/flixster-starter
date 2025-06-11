@@ -110,12 +110,11 @@ Deployed Application (**required**): [Flixster Deployed Site](ADD_LINK_HERE)
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
 
-Add your response here
+The fetching data feature in the weather report app helped me to complete this assignment. It was very useful in teaching me to fetch the movie data from the TMDB API.
 
 * If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
   
-Add your response here
-
+If I had more time I would improve on the styling of the cards, as well as work on a color scheme that matched a website like Netflix. 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
 Add your response here
