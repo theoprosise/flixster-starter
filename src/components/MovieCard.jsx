@@ -21,7 +21,7 @@ export default function MovieCard({ movie, isFavorite, isWatched, onToggleFavori
         />
         <div className="movie-info">
         <h2>{movie.title}</h2>
-        <p>Average Rating: {movie.vote_average} / 10</p>
+        <p>Average Rating: {movie.vote_average.toFixed(1)} / 10</p>
         </div>
         <div className="button-row" onClick={stop}>
             <button className={isFavorite ? "active fav-btn" : "fav-btn"} onClick={onToggleFavorite}>

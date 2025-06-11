@@ -1,28 +1,21 @@
 import React from "react";
-import "./Sidebar.css"
+import "./Sidebar.css";
 
-export default function SideBar({favorites, watched, isOpen, onClose}){
-    return (
-        <aside className={`side-bar ${isOpen ? 'open' : ''}`}>
-            <button onClick={onClose}>Close</button>
-            <section>
-                <h3>Favorites</h3>
-                <ul>
-                    {favorites.length ? favorites.map(m=> <li key={m.id}>{m.title}</li>)
-                : <li><em>No Favorites Yet!</em></li>    
-                }
-                </ul>
-            </section>
-            <section>
-                <h3>Watched</h3>
-                <ul>
-                    {watched.length ? watched.map(m=> <li key={m.id}>{m.title}</li>)
-                : <li><em>Nothing Watched Yet!</em></li>    
-                }
-                </ul>
-            </section>
-
-        </aside>
-    );
-    
+export default function SideBar({isOpen, onClose, onSelect, favoritesCount, watchedCount }) {
+  return (
+    <aside className={`side-bar ${isOpen ? "open" : ""}`}>
+      <button onClick={onClose}>Close</button>
+      <nav className="side-nav">
+        <button onClick={() => onSelect('home')}>
+            Home
+        </button>
+         <button onClick={() => onSelect('favorites')}>
+            Favorites {favoritesCount > 0 && `(${favoritesCount})`}
+        </button>
+         <button onClick={() => onSelect('watched')}>
+            Watched {watchedCount > 0 && `(${watchedCount})`}
+        </button>
+      </nav>
+    </aside>
+  );
 }

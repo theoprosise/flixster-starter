@@ -6,8 +6,8 @@ import MovieModal from "./components/MovieModal";
 import SideBar from "./components/Sidebar";
 
 const App = () => {
-  const [isSideBarOpen, setIsSideBarOpen] = useState(false)
-  const handleToggleSidebar =() =>{
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const handleToggleSidebar = () => {
     setIsSideBarOpen(!isSideBarOpen);
   };
   const [data, setMovieData] = useState([]);
@@ -18,6 +18,8 @@ const App = () => {
   //Arrays to store the favorited and watched movies
   const [favorites, setFavorites] = useState([]);
   const [watched, setWatched] = useState([]);
+
+  const [currentView, setCurrentView] = useState("home");
 
   useEffect(() => {
     fetchNowPlaying();
@@ -118,6 +120,16 @@ const App = () => {
     }
   }
 
+  const displayedMovies = useMemo(() => {
+    if (currentView == "favorites") {
+      return favorites;
+    }
+    if (currentView == "watched") {
+      return watched;
+    }
+    return sortedData;
+  }, [currentView, sortedData, favorites, watched]);
+
   return (
     <div className="App">
       <header className="header">
@@ -136,7 +148,9 @@ const App = () => {
             <option value="date">Release Date (newest)</option>
             <option value="vote">Average Vote (highest)</option>
           </select>
-          <button id="open-side-nav" onClick={handleToggleSidebar}>Open Sidebar</button>
+          <button id="open-side-nav" onClick={handleToggleSidebar}>
+            Open Sidebar
+          </button>
         </div>
       </header>
       <main className="main-content">
@@ -156,7 +170,13 @@ const App = () => {
           Load More
         </button>
       </main>
-      <SideBar favorites={favorites} watched={watched} isOpen={isSideBarOpen} onClose={handleToggleSidebar} />
+      <SideBar
+        isOpen={isSideBarOpen}
+        onClose={handleToggleSidebar}
+        onSelect={setCurrentView}
+        favoritesCount={favorites.length}
+        watchedCount={watched.length}
+      />
     </div>
   );
 };
