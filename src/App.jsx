@@ -156,19 +156,20 @@ const App = () => {
       <main className="main-content">
         {/*Populate MovieList with MovieCards and data from API*/}
         <MovieList
-          data={sortedData}
+          data={displayedMovies}
           favorites={favorites}
           watched={watched}
           onToggleFavorite={toggleFavorite}
           onToggleWatched={toggleWatched}
         />
         <MovieModal />
-        <button
+        {currentView == "home" && (<button
           className="load-more-btn"
-          onClick={() => setPage((page) => page + 1)}
-        >
-          Load More
+          onClick={() => setPage((page) => page + 1)}>
+           Load More
         </button>
+        )}
+         
       </main>
       <SideBar
         isOpen={isSideBarOpen}
