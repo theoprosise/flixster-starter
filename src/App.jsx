@@ -67,7 +67,10 @@ const App = () => {
       }
 
       const newData = await res.json();
-      setMovieData([...data, ...newData.results]);
+      console.log("HERE IS THE DATA" + [...data]);
+      setMovieData((prev) =>
+        page === 1 ? newData.results : [...data, ...newData.results]
+      );
     } catch (err) {
       console.log("ERROR - check err");
     }
@@ -89,7 +92,7 @@ const App = () => {
     );
   };
 
-  //Memoization to reduce redunant calls
+  //Memoization to reduce redundant computing
   const sortedData = useMemo(() => {
     const listDataMovies = [...data];
     switch (sortOption) {
@@ -122,6 +125,7 @@ const App = () => {
       //Real search
       setSearchQuery(query);
       setCurrentView("home");
+      setMovieData([]);
       fetchSearch(query);
     }
   }

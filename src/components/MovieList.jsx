@@ -9,10 +9,12 @@ export default function MovieList({
   onToggleFavorite,
   onToggleWatched,
 }) {
+  //Create unique data to protect against redundant clear calls
+  const uniqueData = [...new Map(data.map((item) => [item.id, item])).values()];
   return (
     <div className="MovieCardContainer">
-      {data ? (
-        data.map((movie) => (
+      {uniqueData ? (
+        uniqueData.map((movie) => (
           <MovieCard
             key={movie.id}
             movie={movie}
