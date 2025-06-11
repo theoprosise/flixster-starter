@@ -30,10 +30,8 @@ const App = () => {
     fetchNowPlaying();
   }, []);
 
-  const fetchSearch = async (query) => {
+  const fetchMovies = async (url) => {
     const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
-    const url = `https://api.themoviedb.org/3/search/movie?query=${query}`;
-
     try {
       const res = await fetch(url, {
         method: "GET",
@@ -44,42 +42,36 @@ const App = () => {
       });
 
       if (!res.ok) {
-        console.log("Error - check res status code");
+        console.error("Error - check res status code:", res.status);
+        return null;
       }
 
-      const searchData = await res.json();
-      setMovieData(searchData.results);
+      return await res.json();
     } catch (err) {
-      console.log("ERROR - check err");
+      console.error("Fetch error:", err);
+      return null;
+    }
+  };
+
+  const fetchSearch = async (query) => {
+    const url = `https://api.themoviedb.org/3/search/movie?query=${query}`;
+    const searchData = await fetchMovies(url);
+    if (searchData) {
+      setMovieData(searchData.results);
     }
   };
 
   const fetchNowPlaying = async () => {
-    const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
     const url = `https://api.themoviedb.org/3/movie/now_playing?&page=${page}`;
-
-    try {
-      const res = await fetch(url, {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      if (!res.ok) {
-        console.log("Error - check res status code");
-      }
-
-      const newData = await res.json();
+    const newData = await fetchMovies(url);
+    if (newData) {
       setMovieData((prev) =>
         page === 1 ? newData.results : [...data, ...newData.results]
       );
-    } catch (err) {
-      console.log("ERROR - check err");
     }
   };
 
+  //Toggle favorite status - if movie in favorites then remove, else add
   const toggleFavorite = (movie) => {
     setFavorites((favs) =>
       favs.find((m) => m.id === movie.id)
@@ -88,6 +80,7 @@ const App = () => {
     );
   };
 
+  //Toggle watched status - if movie in watched then remove, else add
   const toggleWatched = (movie) => {
     setWatched((w) =>
       w.find((m) => m.id === movie.id)
@@ -114,6 +107,8 @@ const App = () => {
   }, [data, sortOption]);
 
   function handleSearchChange(query) {
+    //Check user input
+    if (typeof query !== "string") return;
     //If user cleared box
     if (query === "") {
       setSearchQuery("");
@@ -130,6 +125,7 @@ const App = () => {
     }
   }
 
+  //Memoization to increase performance
   const displayedMovies = useMemo(() => {
     if (currentView === "favorites") {
       return favorites;
