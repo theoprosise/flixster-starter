@@ -3,7 +3,7 @@ import "./Sidebar.css"
 
 export default function SideBar({favorites, watched, isOpen, onClose}){
     return (
-        <aside className={`sidebar ${isOpen ? '.open' : ''}`}>
+        <aside className={`side-bar ${isOpen ? 'open' : ''}`}>
             <button onClick={onClose}>Close</button>
             <section>
                 <h3>Favorites</h3>
