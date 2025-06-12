@@ -75,7 +75,6 @@ function MovieModal({ movie, onClose }) {
         console.log("Error - check res status code");
       }
       const newData = await res.json();
-      console.log(newData);
 
       setRuntime(newData.runtime);
     } catch (err) {
