@@ -99,12 +99,12 @@ Deployed Application (**required**): [Flixster Deployed Site](https://flixster-s
 
 ### Walkthrough Video
 
-<div>
-    <a href="https://www.loom.com/share/df4571c1867e4ef599e5e20aed00a0df">
-      <p>Flixster - Theo - Watch Video</p>
+  <div>
+    <a href="https://www.loom.com/share/06bda9b9373b49c2a37183109360ad26">
+      <p>Flixster Official - Watch Video</p>
     </a>
-    <a href="https://www.loom.com/share/df4571c1867e4ef599e5e20aed00a0df">
-      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/df4571c1867e4ef599e5e20aed00a0df-0433b6af991d8a53-full-play.gif">
+    <a href="https://www.loom.com/share/06bda9b9373b49c2a37183109360ad26">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/06bda9b9373b49c2a37183109360ad26-7634ba7f46afa351-full-play.gif">
     </a>
   </div>
 
@@ -120,7 +120,7 @@ If I had more time I would improve on the styling of the cards, as well as work 
 
 - Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+I would like to implement cooler hover styles next time that I create a site.
 
 ### Open-source libraries used
 
