@@ -140,7 +140,7 @@ const App = () => {
     <div className="App">
       <header className="header">
         <p className="header-text">Flixter</p>
-        <div className="header-info">
+        <div className="banner">
           <SearchForm
             className="searchForm"
             onSearchChange={handleSearchChange}

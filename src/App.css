@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-evenly;
   color: white;
-  padding: 20px;
+  padding-top: 20px;
 }
 
 @media (max-width: 600px) {
@@ -35,10 +35,13 @@
   margin-bottom: 10px;
 }
 
-.header-info{
+.banner{
+  padding-top: 10px;
+  padding-bottom: 10px;
   justify-content: space-around;
   display: flex;
   align-items: center;
+  background-color: grey;
 }
 .main-content{
   background-color: #17181f;
